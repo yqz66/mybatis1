@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bdqn.tangcco.grade.mapper.GradeMapper">
+        <select id="queryAllGrade" resultType="Grade">
+          SELECT * from grade
+
+        </select>
+        <insert id="addGrade" parameterType="Grade">
+            insert into grade VALUES (NULL ,#{gradename})
+        </insert>
+        <update id="updateGrade" parameterType="Grade">
+            UPDATE  grade SET  gradename=#{gradename} where gradeid=#{gradeid}
+        </update>
+        <delete id="deleteGrade" parameterType="Grade">
+            DELETE  from grade where gradeid=#{gradeid}
+        </delete>
+    <resultMap id="gradeVO" type="GradeVO">
+
+            <association property="grade" javaType="Grade">
+                <result property="gradeid" column="gradeid"></result>
+                <result property="gradename" column="gradename"></result>
+            </association>
+            <collection property="slist" ofType="Student">
+                <id property="stuid" column="stuid"></id>
+                <result property="gradeid" column="s_gradeid"></result>
+                <result property="stuname" column="stuname"></result>
+                <result property="stunum" column="stunum"></result>
+                <result property="gender" column="gender"></result>
+                <result property="age" column="age"></result>
+            </collection>
+    </resultMap>
+    <select id="queryStudentByGradeId" parameterType="Grade" resultMap="gradeVO">
+      SELECT g.*,s.stuid,s.age,s.gender,s.stuname,s.stunum,s.gradeid as s_gradeid FROM grade g,student s WHERE  g.gradeid=s.gradeid AND s.gradeid=#{gradeid}
+    </select>
+    <select id="queryGradeById" resultType="Grade">
+        SELECT * from grade where gradeid=#{id}
+    </select>
+
+</mapper>
