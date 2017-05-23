@@ -3,8 +3,10 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
     <mapper namespace="cn.bdqn.tangcco.student.mapper.StudentMapper">
-        <insert id="addStudent" parameterType="Student">
-            insert into student VALUES (null,#{gradeid},#{stuname},#{stunum},#{age},#{gender})
+        <insert id="addStudent" parameterType="Student"  >
+
+            insert into student VALUES (NULL ,#{gradeid},#{stuname},#{stunum},#{age},#{gender})
+
         </insert>
         <update id="updateStudent" parameterType="Student">
             update student set stuname=#{stuname},stunum=#{stunum},gender=#{gender},age=#{age},gradeid=#{gradeid} where stuid=#{stuid}
@@ -16,7 +18,7 @@
             select * from student where stuid=#{id}
         </select>
         <resultMap id="student" type="Student">
-            <id column="stuid" property="stuid"></id>
+            <result property="stuid" column="stuid"></result>
             <result property="stuname" column="stuname"></result>
             <result property="stunum" column="stunum"></result>
             <result property="age" column="age"></result>
@@ -33,7 +35,7 @@
                 AND s.gradeid=#{student.gradeid}
             </if>
             <if test="student.stuname!=null">
-                AND s.stuname=#{student.stuname}
+                AND s.stuname like  CONCAT(CONCAT('%',#{student.stuname},'%'))
             </if>
 
             order by s.stuid DESC LIMIT #{page.pageNumber},#{page.pageSize}
@@ -48,5 +50,9 @@
             <if test="stuname != null ">
                 AND stuname like  CONCAT(CONCAT('%',#{stuname},'%'))
             </if>
+        </select>
+        <select id="queryStudentByName" parameterType="Student" resultMap="student">
+            SELECT  * from student s,grade g where g.gradeid=s.gradeid AND stuname like '%${stuname}%'
+
         </select>
     </mapper>

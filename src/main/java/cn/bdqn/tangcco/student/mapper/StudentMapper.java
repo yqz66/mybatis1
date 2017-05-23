@@ -16,4 +16,6 @@ public interface StudentMapper {
     public List<Student> queryAllStudent(@Param("student") Student student,@Param("page") PackageResult page);
     public Student queryStudentById(int id);
     public int queryCountStudent(Student student);
+    public Student queryStudentByName(Student student);
+
 }

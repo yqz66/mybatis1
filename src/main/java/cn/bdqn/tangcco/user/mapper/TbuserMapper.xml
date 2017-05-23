@@ -6,11 +6,11 @@
         <select id="login" parameterType="Tbuser" resultType="Tbuser">
             SELECT * from tbuser where username=#{username} AND  password=#{password}
         </select>
-        <insert id="addTbuser" parameterType="Tbuser">
+        <insert id="addTbuser" parameterType="Tbuser" keyProperty="userid" useGeneratedKeys="true">
             INSERT INTO tbuser VALUES (NULL ,#{username},#{password},#{userroles},#{nickname},#{registrationtime},#{dateofbirth},#{systemtime})
         </insert>
         <select id="queryAllTbuser" resultType="Tbuser">
-              SELECT * FROM tbuser
+              SELECT * FROM tbuser order by userid DESC
         </select>
         <select id="queryTbuserById" resultType="Tbuser">
             select * from tbuser where userid=#{id}

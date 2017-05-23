@@ -1,6 +1,7 @@
 package cn.bdqn.tangcco.entity;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/5/18.
