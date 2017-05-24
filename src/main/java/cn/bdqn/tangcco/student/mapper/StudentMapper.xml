@@ -35,7 +35,7 @@
                 AND s.gradeid=#{student.gradeid}
             </if>
             <if test="student.stuname!=null">
-                AND s.stuname like  CONCAT(CONCAT('%',#{student.stuname},'%'))
+                AND s.stuname like  CONCAT('%',#{student.stuname},'%')
             </if>
 
             order by s.stuid DESC LIMIT #{page.pageNumber},#{page.pageSize}
@@ -48,7 +48,7 @@
               AND gradeid=#{gradeid}
             </if>
             <if test="stuname != null ">
-                AND stuname like  CONCAT(CONCAT('%',#{stuname},'%'))
+                AND stuname like CONCAT('%',#{stuname},'%')
             </if>
         </select>
         <select id="queryStudentByName" parameterType="Student" resultMap="student">

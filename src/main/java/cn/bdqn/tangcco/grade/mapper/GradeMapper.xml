@@ -7,9 +7,14 @@
           SELECT * from grade
 
         </select>
+
+
         <insert id="addGrade" parameterType="Grade">
             insert into grade VALUES (NULL ,#{gradename})
         </insert>
+
+
+
         <update id="updateGrade" parameterType="Grade">
             UPDATE  grade SET  gradename=#{gradename} where gradeid=#{gradeid}
         </update>
